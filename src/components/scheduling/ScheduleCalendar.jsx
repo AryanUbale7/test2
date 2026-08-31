@@ -1,16 +1,18 @@
 /**
  * @file ScheduleCalendar.jsx
- * @description Interactive 7-day responsive clinic schedule matrix with mobile day switcher.
+ * @description Interactive 7-day responsive clinic schedule matrix with mobile day switcher and router navigation.
  */
 
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Plus, Filter, Clock } from "lucide-react";
 import useApp from "../../hooks/useApp";
 import { DAY_LABELS, HOURS, DEPARTMENTS } from "../../constants/medicalConstants";
 import AppointmentModal from "./AppointmentModal";
 
 export function ScheduleCalendar() {
-  const { appointments, setSelectedPatientId, setPage, patients } = useApp();
+  const { appointments, setSelectedPatientId, patients } = useApp();
+  const navigate = useNavigate();
   const [weekOffset, setWeekOffset] = useState(0);
   const [activeDayMobile, setActiveDayMobile] = useState(0);
   const [deptFilter, setDeptFilter] = useState("All");
@@ -37,7 +39,7 @@ export function ScheduleCalendar() {
     const found = patients.find((p) => p.name === patientName);
     if (found) {
       setSelectedPatientId(found.id);
-      setPage("timeline");
+      navigate("/timeline");
     }
   };
 

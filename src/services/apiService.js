@@ -1,0 +1,10 @@
+/**
+ * @file apiService.js
+ * @description Central unified API service gateway exporting all clinical domain APIs.
+ */
+
+export { apiClient } from "../api/apiClient";
+export { patientApi } from "../api/patientApi";
+export { appointmentApi } from "../api/appointmentApi";
+export { reportApi } from "../api/reportApi";
+export { telemetryApi } from "../api/telemetryApi";

@@ -3,19 +3,21 @@
  * @description List of today's upcoming clinic appointments with direct timeline jump.
  */
 
+import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import useApp from "../../hooks/useApp";
 import SectionHeading from "../common/SectionHeading";
 
 export function UpcomingAppointmentsList() {
-  const { appointments, setSelectedPatientId, setPage, patients } = useApp();
+  const { appointments, setSelectedPatientId, patients } = useApp();
+  const navigate = useNavigate();
   const todays = appointments.filter((a) => a.dayIdx === 0).slice(0, 5);
 
   const handlePatientClick = (patientName) => {
     const found = patients.find((p) => p.name === patientName);
     if (found) {
       setSelectedPatientId(found.id);
-      setPage("timeline");
+      navigate("/timeline");
     }
   };
 
@@ -29,7 +31,7 @@ export function UpcomingAppointmentsList() {
             className="mb-0"
           />
           <button
-            onClick={() => setPage("scheduling")}
+            onClick={() => navigate("/scheduling")}
             className="text-xs font-semibold text-[#0F7C6C] dark:text-[#5EEAD4] hover:underline flex items-center gap-1"
           >
             Full schedule <ArrowRight size={13} />

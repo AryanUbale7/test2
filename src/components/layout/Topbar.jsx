@@ -4,13 +4,15 @@
  */
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Bell, X } from "lucide-react";
 import useApp from "../../hooks/useApp";
 import useTheme from "../../hooks/useTheme";
 
 export function Topbar({ title, sub }) {
-  const { searchQuery, setSearchQuery, patients, setSelectedPatientId, setPage } = useApp();
+  const { searchQuery, setSearchQuery, patients, setSelectedPatientId } = useApp();
   const { isDark } = useTheme();
+  const navigate = useNavigate();
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
 
@@ -25,7 +27,7 @@ export function Topbar({ title, sub }) {
 
   const handleSelectPatient = (pId) => {
     setSelectedPatientId(pId);
-    setPage("timeline");
+    navigate("/timeline");
     setShowSearchModal(false);
     setSearchQuery("");
   };

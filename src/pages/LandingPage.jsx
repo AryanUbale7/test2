@@ -3,6 +3,7 @@
  * @description SaaS landing page with live interactive mini-dashboard preview and capability matrix.
  */
 
+import { useNavigate } from "react-router-dom";
 import {
   Activity,
   LayoutDashboard,
@@ -19,7 +20,6 @@ import {
 } from "lucide-react";
 import { AreaChart, Area, ResponsiveContainer } from "recharts";
 import PulseRule from "../components/common/PulseRule";
-import useApp from "../hooks/useApp";
 import useTheme from "../hooks/useTheme";
 import { genAdmissions14D } from "../services/mockDataEngine";
 
@@ -29,35 +29,40 @@ const FEATURE_GROUPS = [
     title: "1. Interactive Healthcare Dashboard",
     desc: "Centralized overview of appointments, medical history, bed occupancy, streaming telemetry, and summary KPI metrics.",
     tag: "Analytics & Telemetry",
+    route: "/dashboard",
   },
   {
     icon: ClipboardList,
     title: "2. Treatment Timeline & Diagnostics",
     desc: "Structured patient history timeline paired with comprehensive lab reports, reference ranges, and abnormal marker flags.",
     tag: "Clinical Care Plan",
+    route: "/timeline",
   },
   {
     icon: TrendingUp,
     title: "3. Predictive Analytics Charts (UI)",
     desc: "Forecast healthcare trends and 30-day readmission risk curves with 95% confidence intervals and AI insights.",
     tag: "AI Forecasting",
+    route: "/dashboard",
   },
   {
     icon: Calendar,
     title: "4. Scheduling & Live Monitoring",
     desc: "7-day interactive appointment matrix with doctor-on-duty rosters and real-time streaming vital sign widgets.",
     tag: "Resource Operations",
+    route: "/scheduling",
   },
   {
     icon: BarChart3,
     title: "5. Customizable Healthcare Reports",
     desc: "Dynamic report builder with multi-model visualizations, filtered archives, and instant CSV/PDF export pipelines.",
     tag: "Executive Reporting",
+    route: "/reports",
   },
 ];
 
 export function LandingPage() {
-  const { setPage } = useApp();
+  const navigate = useNavigate();
   const { isDark, toggleTheme } = useTheme();
   const previewData = genAdmissions14D().slice(0, 9);
 
@@ -109,7 +114,7 @@ export function LandingPage() {
             </button>
 
             <button
-              onClick={() => setPage("dashboard")}
+              onClick={() => navigate("/dashboard")}
               className="flex items-center gap-1.5 bg-[#0F7C6C] text-white text-xs font-bold px-4 h-9 rounded-full hover:bg-[#0C6A5C] transition-colors shadow-xs"
             >
               Launch Dashboard <ArrowRight size={14} />
@@ -136,13 +141,13 @@ export function LandingPage() {
 
           <div className="flex flex-wrap items-center gap-3.5 mt-8">
             <button
-              onClick={() => setPage("dashboard")}
+              onClick={() => navigate("/dashboard")}
               className="flex items-center gap-2 bg-[#0F7C6C] text-white text-sm font-bold px-6 h-12 rounded-full hover:bg-[#0C6A5C] transition-all shadow-md"
             >
               Open Live Dashboard <ArrowRight size={16} />
             </button>
             <button
-              onClick={() => setPage("timeline")}
+              onClick={() => navigate("/timeline")}
               className="flex items-center gap-2 border border-[#E4E9ED] dark:border-[#243447] bg-white dark:bg-[#111C2E] text-[#0B2545] dark:text-[#F5F7FB] text-sm font-bold px-6 h-12 rounded-full hover:bg-gray-50 dark:hover:bg-[#1C2C42] transition-colors"
             >
               View Patient Timeline
@@ -243,7 +248,8 @@ export function LandingPage() {
           {FEATURE_GROUPS.map((f) => (
             <div
               key={f.title}
-              className="bg-white dark:bg-[#111C2E] border border-[#E4E9ED] dark:border-[#243447] rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:border-[#0F7C6C]/40 transition-all group"
+              onClick={() => navigate(f.route)}
+              className="bg-white dark:bg-[#111C2E] border border-[#E4E9ED] dark:border-[#243447] rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:border-[#0F7C6C]/40 transition-all group cursor-pointer"
             >
               <div>
                 <div className="w-12 h-12 rounded-xl bg-[#EAEFF5] dark:bg-[#1C2C42] flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
@@ -281,7 +287,7 @@ export function LandingPage() {
             </div>
 
             <button
-              onClick={() => setPage("dashboard")}
+              onClick={() => navigate("/dashboard")}
               className="mt-6 flex items-center justify-between w-full px-4 py-3 bg-[#0F7C6C] hover:bg-[#0C6A5C] text-white text-xs font-bold rounded-xl transition-colors"
             >
               <span>Explore Analytics Console</span>

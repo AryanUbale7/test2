@@ -1,16 +1,17 @@
 /**
  * @file MobileNav.jsx
- * @description Accessible mobile bottom navigation bar with theme and profile shortcuts.
+ * @description Accessible mobile bottom navigation bar with React Router integration and theme toggles.
  */
 
+import { useLocation, useNavigate } from "react-router-dom";
 import { User, Sun, Moon } from "lucide-react";
-import useApp from "../../hooks/useApp";
 import useTheme from "../../hooks/useTheme";
 import { NAV_ITEMS } from "../../constants/navConfig";
 
 export function MobileNav() {
-  const { page, setPage } = useApp();
   const { isDark, toggleTheme } = useTheme();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <nav
@@ -20,12 +21,15 @@ export function MobileNav() {
       aria-label="Mobile Navigation"
     >
       {NAV_ITEMS.map((item) => {
-        const active = page === item.id;
+        const path = `/${item.id}`;
+        const active = location.pathname === path;
+
         return (
           <button
             key={item.id}
-            onClick={() => setPage(item.id)}
+            onClick={() => navigate(path)}
             aria-label={item.label}
+            aria-current={active ? "page" : undefined}
             className={`flex-1 flex flex-col items-center justify-center gap-1 py-2.5 text-[10px] font-medium transition-colors ${
               active ? "text-white font-bold" : "text-[#8593a1] hover:text-white"
             }`}
@@ -48,13 +52,14 @@ export function MobileNav() {
       </button>
 
       <button
-        onClick={() => setPage("profile")}
+        onClick={() => navigate("/profile")}
         aria-label="Coordinator Profile"
+        aria-current={location.pathname === "/profile" ? "page" : undefined}
         className={`flex-1 flex flex-col items-center justify-center gap-1 py-2.5 text-[10px] font-medium transition-colors ${
-          page === "profile" ? "text-white font-bold" : "text-[#8593a1] hover:text-white"
+          location.pathname === "/profile" ? "text-white font-bold" : "text-[#8593a1] hover:text-white"
         }`}
       >
-        <User size={18} strokeWidth={page === "profile" ? 2.5 : 2} aria-hidden="true" />
+        <User size={18} strokeWidth={location.pathname === "/profile" ? 2.5 : 2} aria-hidden="true" />
         <span>Profile</span>
       </button>
     </nav>
