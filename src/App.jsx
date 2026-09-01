@@ -1,6 +1,12 @@
 /**
  * @file App.jsx
  * @description Root application shell with client router architecture (React Router v7), Error Boundaries, and Context Providers.
+ * Domain Features:
+ * 1. Interactive Healthcare Dashboard
+ * 2. Treatment Timeline & Diagnostic Reports
+ * 3. Predictive Analytics Charts (UI Only)
+ * 4. Scheduling & Live Monitoring Widgets [REALTIME]
+ * 5. Customizable Healthcare Reports
  */
 
 import { lazy, Suspense } from "react";
@@ -13,6 +19,12 @@ import MobileNav from "./components/layout/MobileNav";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import LoadingSkeleton from "./components/common/LoadingSkeleton";
 import ToastContainer from "./components/common/Toast";
+
+// Domain APIs & Services
+import "./services/apiService";
+import "./api/schedulingAndLiveMonitoringApi";
+import "./api/patientApi";
+import "./api/reportApi";
 
 // Lazy-loaded page components for optimal bundle performance & code-splitting
 const LandingPage = lazy(() => import("./pages/LandingPage"));
@@ -75,6 +87,14 @@ export default function App() {
             />
             <Route
               path="/scheduling"
+              element={
+                <AppLayout>
+                  <SchedulingPage />
+                </AppLayout>
+              }
+            />
+            <Route
+              path="/scheduling-and-live-monitoring"
               element={
                 <AppLayout>
                   <SchedulingPage />

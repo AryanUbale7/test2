@@ -10,6 +10,7 @@ import StatCard from "../components/common/StatCard";
 import SectionHeading from "../components/common/SectionHeading";
 import PulseRule from "../components/common/PulseRule";
 import VitalsGrid from "../components/dashboard/VitalsGrid";
+import StatusIndicators from "../components/scheduling/StatusIndicators";
 import AdmissionsChart from "../components/dashboard/AdmissionsChart";
 import PredictiveForecastChart from "../components/dashboard/PredictiveForecastChart";
 import UpcomingAppointmentsList from "../components/dashboard/UpcomingAppointmentsList";
@@ -81,13 +82,18 @@ export function DashboardPage() {
       </div>
 
       {/* Live Monitoring Telemetry */}
-      <div className="mb-8">
+      <div className="mb-6">
         <SectionHeading
-          eyebrow="Requirement 4 · Live Telemetry Monitoring"
-          title="Streaming Ward Physiological Telemetry"
-          sub="Simulated real-time vital waveforms streaming from connected hospital telemetry"
+          eyebrow="Requirement 4 · Live Monitoring Widgets"
+          title="Streaming Ward Physiological Telemetry & Monitoring Widgets"
+          sub="Simulated real-time vital waveforms streaming from connected hospital telemetry widgets"
         />
         <VitalsGrid />
+      </div>
+
+      {/* Status Indicators */}
+      <div className="mb-8">
+        <StatusIndicators />
       </div>
 
       {/* Analytics & Forecast Charts Grid */}

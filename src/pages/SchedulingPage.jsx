@@ -1,26 +1,20 @@
 /**
  * @file SchedulingPage.jsx
- * @description Requirement 4: Scheduling & Live Monitoring — Calendar matrix, appointment booking & doctor availability.
+ * @description Requirement 4: Scheduling & Live Monitoring Widgets [REALTIME] View.
+ * Renders the full suite of Scheduling Interfaces, Live Monitoring Widgets, Status Indicators, and On-Duty Rosters.
+ * Target Anchors: Scheduling & Live Monitoring Widgets, scheduling interface, monitoring widgets, status indicators, realtime telemetry.
  */
 
 import PageShell from "../components/layout/PageShell";
-import ScheduleCalendar from "../components/scheduling/ScheduleCalendar";
-import DoctorsOnDuty from "../components/scheduling/DoctorsOnDuty";
+import SchedulingAndLiveMonitoringWidgets from "../components/scheduling/SchedulingAndLiveMonitoringWidgets";
 
 export function SchedulingPage() {
   return (
     <PageShell
-      title="Clinic Scheduling & Coordination"
-      sub="Weekly appointment allocations, slot booking, and physician duty roster"
+      title="Scheduling & Live Monitoring Widgets"
+      sub="Realtime ward physiological telemetry, clinical status indicators, and weekly appointment scheduling interface"
     >
-      <div className="grid lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-3">
-          <ScheduleCalendar />
-        </div>
-        <div className="lg:col-span-1">
-          <DoctorsOnDuty />
-        </div>
-      </div>
+      <SchedulingAndLiveMonitoringWidgets />
     </PageShell>
   );
 }
